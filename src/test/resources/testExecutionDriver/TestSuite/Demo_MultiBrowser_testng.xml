@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="MultiBrowser" parallel="tests" thread-count="3" verbose="1">
+
+    <!-- DESKTOP -->
+    <parameter name="platform" value="DESKTOP"/>
+
+    <test name="Test-1">
+        <parameter name="browser" value="multiBrowser"/>
+        <classes>
+            <class name="com.sugarCRM.suites.demo.To_Create_a_Lead_in_SugarCRM" />
+
+        </classes>
+    </test>
+    <test name="Test-2">
+        <parameter name="browser" value="multiBrowser"/>
+        <classes>
+            <class name="com.sugarCRM.suites.demo.To_Edit_a_Lead_in_SugarCRM" />
+        </classes>
+    </test>
+    <test name="Test-3">
+        <parameter name="browser" value="multiBrowser"/>
+        <classes>
+            <class name="com.sugarCRM.suites.demo.To_Delete_a_Lead_in_SugarCRM" />
+        </classes>
+    </test>
+</suite>
+

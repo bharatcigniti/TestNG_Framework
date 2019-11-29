@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Series" parallel="tests" thread-count="3" verbose="1">
+
+    <!-- DESKTOP -->
+    <parameter name="platform" value="DESKTOP"/>
+    <!--  Chrome, Firefox/ff, Safari,  IE/Internet Explorer/IE11  -->
+    <parameter name="browser" value="chrome"/>
+
+    <test name="Test-1">
+        <classes>
+        <class name="com.sugarCRM.suites.demo.To_Create_a_Lead_in_SugarCRM" />
+<!--        <class name="com.sugarCRM.suites.demo.To_Edit_a_Lead_in_SugarCRM" />-->
+<!--        <class name="com.sugarCRM.suites.demo.To_Delete_a_Lead_in_SugarCRM" />-->
+        </classes>
+    </test>
+
+
+</suite>
+
