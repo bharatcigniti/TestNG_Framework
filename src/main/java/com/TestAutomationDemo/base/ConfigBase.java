@@ -62,7 +62,7 @@ public class ConfigBase {
         configTestData.testPlatform = platform;
         configTestData.testBrowser = browser;
         try {
-            configTestData.testMethodName = testMethod.getName();
+            configTestData.testName = testMethod.getName();
             remoteWebDriver = new ThreadLocal<>();
             DriverConfig driverConfig = new DriverConfig(configTestData);
             remoteWebDriver.set(driverConfig.getDriver());
@@ -100,6 +100,7 @@ public class ConfigBase {
     protected void afterMethod(ITestResult result) {
         try{
             configTestData.driver.quit();
+
         } catch (Exception e){
             e.printStackTrace();
         }

@@ -17,7 +17,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.HashMap;
 import java.util.List;
 
-public class LeadsPage {
+public class LeadsPage extends TestBase {
     WebDriver driver;
     ConfigTestData configTestData;
     //TestBase testData;
@@ -178,23 +178,23 @@ public class LeadsPage {
 
 
     public void user_click_on_CreateLead(){
-        Action.click(lnk_CreateLeads);
+        action.click(lnk_CreateLeads);
     }
 
     public void user_fills_Lead_information(HashMap<String,String> testData){
 
         try {
             Thread.sleep(30);
-            Action.enterInput(input_OfficePhone, testData.get("Office_Phone"));
-            Action.enterInput(input_HomePhone, testData.get("Home_Phone"));
-            Action.enterInput(input_MobilePhone, testData.get("Mobile_Phone"));
-            Action.enterInput(input_LastName, testData.get("Last_Name"));
+            action.enterInput(input_OfficePhone, testData.get("Office_Phone"));
+            action.enterInput(input_HomePhone, testData.get("Home_Phone"));
+            action.enterInput(input_MobilePhone, testData.get("Mobile_Phone"));
+            action.enterInput(input_LastName, testData.get("Last_Name"));
 
-            Action.selectItemInCombobox(list_Salutation, testData.get("Salutation"));
-            Action.enterInput(input_FirstName, testData.get("First_Name"));
+            action.selectItemInCombobox(list_Salutation, testData.get("Salutation"));
+            action.enterInput(input_FirstName, testData.get("First_Name"));
 
-            Action.selectItemInCombobox(list_Leadsource, testData.get("Lead_Source"));
-            Action.click(btn_Campaign_Select);
+            action.selectItemInCombobox(list_Leadsource, testData.get("Lead_Source"));
+            action.click(btn_Campaign_Select);
 
             String winHandleBefore = driver.getWindowHandle();
             for (String winHandle : driver.getWindowHandles()) {
@@ -202,26 +202,26 @@ public class LeadsPage {
             }
 
             Thread.sleep(1000);
-            Action.clearInput(campaign_SearchName);
-            Action.enterInput(campaign_SearchName, testData.get("Campaign_SearchName"));
-            Action.click(campaign_SearchButton);
-            Action.click(campaign_SearchResult);
+            action.clearInput(campaign_SearchName);
+            action.enterInput(campaign_SearchName, testData.get("Campaign_SearchName"));
+            action.click(campaign_SearchButton);
+            action.click(campaign_SearchResult);
             Thread.sleep(1000);
             driver.switchTo().window(winHandleBefore);
-            Action.enterInput(account_name, testData.get("Account_Name"));
-            Action.enterInput(title, testData.get("Title"));
-            Action.enterInput(department, testData.get("Department"));
-            Action.click(assigned_select);
+            action.enterInput(account_name, testData.get("Account_Name"));
+            action.enterInput(title, testData.get("Title"));
+            action.enterInput(department, testData.get("Department"));
+            action.click(assigned_select);
 
 
             for (String winHandle : driver.getWindowHandles()) {
                 driver.switchTo().window(winHandle);
             }
             Thread.sleep(1000);
-            Action.enterInput(assignedto_fname, testData.get("Assignedto_FirstName"));
-            Action.enterInput(assignedto_lname, testData.get("Assignedto_LastName"));
-            Action.enterInput(assignedto_uname, testData.get("Assignedto_UserName"));
-            Action.click(assignedto_cancel);
+            action.enterInput(assignedto_fname, testData.get("Assignedto_FirstName"));
+            action.enterInput(assignedto_lname, testData.get("Assignedto_LastName"));
+            action.enterInput(assignedto_uname, testData.get("Assignedto_UserName"));
+            action.click(assignedto_cancel);
 
             Thread.sleep(1000);
             driver.switchTo().window(winHandleBefore);
@@ -232,37 +232,37 @@ public class LeadsPage {
 
 
     public void user_fills_the_address_information(HashMap<String,String> testData) {
-        Action.enterInput(primary_address, testData.get("Primary_Address"));
-        Action.enterInput(state, testData.get("city"));
-        Action.enterInput(postalcode, testData.get("PostalCode"));
-        Action.enterInput(country, testData.get("Country"));
-        Action.click(copy_checkbox);
+        action.enterInput(primary_address, testData.get("Primary_Address"));
+        action.enterInput(state, testData.get("city"));
+        action.enterInput(postalcode, testData.get("PostalCode"));
+        action.enterInput(country, testData.get("Country"));
+        action.click(copy_checkbox);
     }
 
     public void user_fills_the_email_details(HashMap<String,String> testData) {
-        Action.enterInput(email_field1, testData.get("Email1"));
-        Action.click(add_address);
-        Action.enterInput(email_field2, testData.get("Email2"));
-        Action.click(email_delete);
+        action.enterInput(email_field1, testData.get("Email1"));
+        action.click(add_address);
+        action.enterInput(email_field2, testData.get("Email2"));
+        action.click(email_delete);
     }
 
     public void user_clicks_on_save_button() {
-        if(Verification.isDisplayed(Save)){
-            Action.click(Save);
+        if(verification.isDisplayed(Save)){
+            action.click(Save);
         }
     }
 
     public boolean user_verifies_the_creation_of_lead() {
-        return Verification.isDisplayed(lead_verification);
+        return verification.isDisplayed(lead_verification);
     }
 
 
     public void user_verifies_the_updation_of_lead() {
-        Action.click(lead_verification);
+        action.click(lead_verification);
     }
 
     public void user_logsout_from_application() {
-        Action.click(logout);
+        action.click(logout);
     }
 
     public void user_edit_lead_information(HashMap<String,String> testData) throws Exception{
@@ -272,35 +272,34 @@ public class LeadsPage {
 //        System.out.println("Rows:"+rows.size());
 //        System.out.println("Columns:"+colms.size());
 //        System.out.println("value::"+colms.get(2).getText());
-        Action.enterInput(edit_fname,testData.get("First_Name"));
-        Action.enterInput(edit_lname,testData.get("Last_Name"));
-        Action.click(edit_Search);
+        action.enterInput(edit_fname,testData.get("First_Name"));
+        action.enterInput(edit_lname,testData.get("Last_Name"));
+        action.click(edit_Search);
         Thread.sleep(500);
         WebElement element = driver.findElement(By.xpath("//form[@id='MassUpdate']/table//tr[3]/td[2]/a[text()='Ms. Steffani Doss'][1]"));
-        Action.click(element);
+        action.click(element);
         Thread.sleep(500);
 
-        Action.click(btnEdit);
+        action.click(btnEdit);
         Thread.sleep(500);
 
         user_fills_the_address_information(testData);
-
         user_clicks_on_save_button();
     }
 
     public void user_enter_lead_fname_lname(String fname,String lname)throws Exception{
-        Action.enterInput(edit_fname,fname);
-        Action.enterInput(edit_lname,lname);
-        Action.click(edit_Search);
+        action.enterInput(edit_fname,fname);
+        action.enterInput(edit_lname,lname);
+        action.click(edit_Search);
         Thread.sleep(500);
     }
     public void user_delete_lead_information() throws Exception{
 
         WebElement element = driver.findElement(By.xpath("//form[@id='MassUpdate']/table//tr[3]/td[2]/a[text()='Ms. Steffani Doss'][1]"));
-        Action.click(element);
+        action.click(element);
         Thread.sleep(500);
 
-        Action.click(delete);
+        action.click(delete);
         Thread.sleep(500);
 
         Alert alert=driver.switchTo().alert();

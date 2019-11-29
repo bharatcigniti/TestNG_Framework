@@ -14,18 +14,25 @@ import org.testng.annotations.Test;
  */
 public class To_Delete_a_Lead_in_SugarCRM extends TestBase {
 
-    @Test(groups={"Smoke"})
+    public ExtentTest test;
+
+    public void pretest_setup(){
+        initPageClass();
+        configTestData.testName = "To_Delete_a_Lead_in_SugarCRM";
+        testData = projectGeneric.getTestData(GlobalConstants.TEST_DATA_PATH, ProjectConstants.TEST_DATA_SUGARCRM_LEAD, configTestData.testName);
+
+
+        test = extentManager.createTest(configTestData.testName);
+        extentManager.createNode("Browser  ::  " + configTestData.testBrowser, configTestData.testName, test);
+        extentManager.assignGroup(configTestData.testBrowser, test);
+    }
+
+    @Test
     public void To_Delete_a_Lead_in_SugarCRM() throws Exception {
        //Variable Declarion
-        configTestData.testMethodName = "To_Delete_a_Lead_in_SugarCRM";
-        testData = generic.getTestData(GlobalConstants.TEST_DATA_PATH, ProjectConstants.TEST_DATA_SUGARCRM_LEAD, configTestData.testMethodName);
+        pretest_setup();
 
         if(testData.get("Execute").equalsIgnoreCase("YES")) {
-            ExtentTest test;
-            test = extentManager.createTest(configTestData.testMethodName);
-            extentManager.createNode("Browser  ::  " + configTestData.testBrowser, configTestData.testMethodName, test);
-            extentManager.assignGroup(configTestData.testBrowser, test);
-            initPageClass();
 
             //Step 1
             loginPage.navigate_SugarCRMLoginPage();
@@ -52,11 +59,11 @@ public class To_Delete_a_Lead_in_SugarCRM extends TestBase {
 
             leadsPage.user_logsout_from_application();
             Thread.sleep(2000);
-            verify(Verification.verifyPageUrl(loginPage.login_URL), "user logsout from application", test);
+            verify(!Verification.verifyPageUrl(loginPage.login_URL), "user logsout from application", test);
 
 
         } else {
-            configTestData.finalTestCaseStatus = Status.SKIP;
+
         }
     }
 

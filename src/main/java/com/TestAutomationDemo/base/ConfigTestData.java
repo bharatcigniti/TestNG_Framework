@@ -21,14 +21,14 @@ public class ConfigTestData {
     public String groupName = null;
     public String suiteXmlName=null;
 
-    public String testMethodName = null;
+    public String testName = null;
 
     public int stepNo =  0;
     public String stepDescription =  null;
     public String stepExpected =  null;
     public String stepFail = null;
 
-    public Status finalTestCaseStatus = Status.PASS;
+//    public Status finalTestCaseStatus = Status.PASS;
 
 
 

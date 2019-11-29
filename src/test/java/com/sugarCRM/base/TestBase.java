@@ -7,6 +7,7 @@ import com.TestAutomationDemo.keywords.Verification;
 import com.TestAutomationDemo.utils.Generic;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
+import com.sugarCRM.generic.ProjectGeneric;
 import com.sugarCRM.pages.HomePage;
 import com.sugarCRM.pages.LeadsPage;
 import com.sugarCRM.pages.LoginPage;
@@ -29,8 +30,10 @@ import java.util.ResourceBundle;
  */
 public class TestBase extends ConfigBase {
     // Variable declarions
+    public ExtentTest extentTest;
     public Action action;
     public Verification verification;
+    public ProjectGeneric projectGeneric;
 
     public HashMap<String,String> testData;
 
@@ -44,7 +47,7 @@ public class TestBase extends ConfigBase {
     public void initPageClass(){
         action = new Action(configTestData);
         verification = new Verification(configTestData);
-
+        projectGeneric = new ProjectGeneric();
 
 
         homePage = new HomePage(configTestData);
@@ -63,7 +66,6 @@ public class TestBase extends ConfigBase {
             extentManager.addstep(Status.PASS,msg,test);
         } else{
             extentManager.addstep(Status.FAIL,msg,test);
-            configTestData.finalTestCaseStatus = Status.FAIL;
         }
     }
 

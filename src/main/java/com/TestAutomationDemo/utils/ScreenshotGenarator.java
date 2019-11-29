@@ -28,7 +28,7 @@ public class ScreenshotGenarator {
         String screenshotPath = null;
 
         if(path == null) {
-            String screenshotFileName = configTestData.testMethodName + "_[" + DateUtils.getTime() + "]_" + DateUtils.getDate();
+            String screenshotFileName = configTestData.testName + "_[" + DateUtils.getTime() + "]_" + DateUtils.getDate();
             screenshotPath = Generic.readConfigProp("reports.screenshots.path") + screenshotFileName + ".png";
             path = GlobalConstants.workDir+Generic.readConfigProp("reports.path") + screenshotPath;
 

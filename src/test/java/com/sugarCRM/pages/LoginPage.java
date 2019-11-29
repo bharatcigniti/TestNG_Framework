@@ -2,6 +2,7 @@ package com.sugarCRM.pages;
 
 import com.TestAutomationDemo.base.ConfigTestData;
 import com.TestAutomationDemo.keywords.Action;
+import com.sugarCRM.base.TestBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
@@ -14,7 +15,7 @@ import java.util.HashMap;
  * @Author Bharath Kumar Reddy V
  * @Date 22-Nov-2019
  */
-public class LoginPage {
+public class LoginPage extends TestBase {
 
     WebDriver driver;
     ConfigTestData configTestData;
@@ -56,13 +57,15 @@ public class LoginPage {
 
     public void user_Login_To_SugarCRM(HashMap<String,String> testData){
         try {
-            Action.enterInput(input_UserName,testData.get("UserName"));
-            Action.enterInput(input_Password,testData.get("Password"));
+            action.enterInput(input_UserName,testData.get("UserName"));
+            action.enterInput(input_Password,testData.get("Password"));
             Thread.sleep(15);
-            Action.click(btn_Login);
+            action.click(btn_Login);
         } catch (Exception e){
             e.printStackTrace();
         }
+
+        
 
     }
 }

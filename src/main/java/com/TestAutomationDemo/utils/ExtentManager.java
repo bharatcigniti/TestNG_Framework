@@ -39,6 +39,7 @@ public class ExtentManager {
 
         extentReports = new ExtentReports();
         extentReports.attachReporter(htmlReporter);
+        extentReports.setReportUsesManualConfiguration(true);
 
         // Passing General information
         extentReports.setSystemInfo("Host name", "localhost");
@@ -52,6 +53,7 @@ public class ExtentManager {
     }
     public void createNode(String name,String description,ExtentTest test){
         test.createNode(name,description);
+
     }
     public void addstep(Status status,String details,ExtentTest test){
 
@@ -59,12 +61,19 @@ public class ExtentManager {
             switch (status) {
                 case INFO:
                     test.log(Status.INFO,details);
+
                     break;
                 case PASS:
-                    test.log(Status.PASS,details);
+//                    test.log(Status.PASS,details);
+                    test.pass(details);
                     break;
                 case FAIL:
-                   test.log(Status.FAIL,details);
+//                   test.log(Status.FAIL,details);
+                    test.fail(details);
+                    break;
+                case SKIP:
+//                    test.log(Status.SKIP,details);
+                    test.skip(details);
                     break;
             }
         }catch (Exception e){
@@ -78,5 +87,15 @@ public class ExtentManager {
 
     public void endReport() {
         extentReports.flush();
+    }
+
+    public ExtentTest getExtentTest(String testName,String execute){
+        ExtentTest extentTest=null;
+        if(execute.equalsIgnoreCase("YES")) {
+            extentTest = createTest(testName);
+        } else{
+            extentTest = createTest(testName).skip("Test Script :: "+testName+"  Skipped");
+        }
+        return extentTest;
     }
 }
