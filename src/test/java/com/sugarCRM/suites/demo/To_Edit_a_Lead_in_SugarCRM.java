@@ -32,7 +32,7 @@ public class To_Edit_a_Lead_in_SugarCRM extends TestBase {
     public void To_Edit_a_Lead_in_SugarCRM() throws Exception {
        //Variable Declarion
         pretest_setup();
-        if(testData.get("Execute").equalsIgnoreCase("YES")) {
+        if(testData.get("ExecuteScript").equalsIgnoreCase("YES")) {
 
             //Step 1
             loginPage.navigate_SugarCRMLoginPage();

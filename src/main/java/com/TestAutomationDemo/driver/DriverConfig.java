@@ -50,6 +50,7 @@ public class DriverConfig {
             }
 
             driver= setWebDriverManage(new RemoteWebDriver(new URL(GlobalConstants.LOCAL_GRID_HUB), getBrowserCapabilities()));
+
         } catch (Exception e){
             e.printStackTrace();
         }
