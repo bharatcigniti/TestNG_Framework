@@ -92,7 +92,6 @@ public class Generic {
 
         }catch (Exception e) {
             result=false;
-            Log.error("Exception in verifyText :"+ e.getMessage());
         }
         return result;
     }

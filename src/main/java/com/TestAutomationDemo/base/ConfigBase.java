@@ -32,8 +32,6 @@ public class ConfigBase {
     public ScreenshotGenarator screenshotGenarator;
     public ThreadLocal<RemoteWebDriver> remoteWebDriver = null;
     public Generic generic;
-    public static ResourceBundle rbTestdata;
-    HashMap<String, String> enviornmentHashmap;
 
     @BeforeSuite (alwaysRun = true)
     public void beforeSuite(ITestContext context){
@@ -49,16 +47,10 @@ public class ConfigBase {
         }
     }
 
-
-
-
     @Parameters({"platform","browser"})
     @BeforeMethod(alwaysRun = true)
     public void initSetup(Method testMethod,String platform,@Optional("optional") String browser){
-
-
         screenshotGenarator = new ScreenshotGenarator(configTestData);
-
         configTestData.testPlatform = platform;
         configTestData.testBrowser = browser;
         try {

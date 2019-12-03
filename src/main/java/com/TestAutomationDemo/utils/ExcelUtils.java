@@ -71,8 +71,8 @@ public class ExcelUtils {
 
 
 	/** To Return the Excel-XLSX Values given Path to the File and Sheet Name */
-	public Object[][] getTableArray(String FilePath, String SheetName) throws Exception{
-		Object[][] tabArray = null;
+	public String[][] getTableArray(String FilePath, String SheetName) throws Exception{
+		String[][] tabArray = null;
 		try
 		{
 			File file = new File(FilePath);
@@ -87,7 +87,7 @@ public class ExcelUtils {
 				int ci,cj;
 				int totalRows = xlsxRowCount();
 				int totalCols = xlsxColumnCount();
-				tabArray=new Object[totalRows-1][totalCols];
+				tabArray=new String[totalRows-1][totalCols];
 				ci=0;
 				for (int i=startRow;i<totalRows;i++)
 				{
@@ -111,7 +111,7 @@ public class ExcelUtils {
 				int ci,cj;
 				int totalRows = xlsRowCount();
 				int totalCols = xlsColumnCount();
-				tabArray=new Object[totalRows-1][totalCols];
+				tabArray=new String[totalRows-1][totalCols];
 				ci=0;
 				for (int i=startRow;i<totalRows;i++)
 				{
@@ -138,9 +138,9 @@ public class ExcelUtils {
 
 
 	/** To Return the Excel-XLSX Values given Path to the File */
-	public Object[][] getTableArray(String FilePath) throws Exception
+	public String[][] getTableArray(String FilePath) throws Exception
 	{
-		Object[][] tabArray = null;
+		String[][] tabArray = null;
 		try
 		{
 			File file = new File(FilePath);
@@ -155,7 +155,7 @@ public class ExcelUtils {
 				int ci,cj;
 				int totalRows = xlsxRowCount();
 				int totalCols = xlsxColumnCount();
-				tabArray=new Object[totalRows-1][totalCols];
+				tabArray=new String[totalRows-1][totalCols];
 				ci=0;
 				for (int i=startRow;i<totalRows;i++)
 				{
@@ -179,7 +179,7 @@ public class ExcelUtils {
 				int ci,cj;
 				int totalRows = xlsRowCount();
 				int totalCols = xlsColumnCount();
-				tabArray=new Object[totalRows-1][totalCols];
+				tabArray=new String[totalRows-1][totalCols];
 				ci=0;
 				for (int i=startRow;i<totalRows;i++)
 				{

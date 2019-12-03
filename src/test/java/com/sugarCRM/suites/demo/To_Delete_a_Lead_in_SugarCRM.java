@@ -14,55 +14,36 @@ import org.testng.annotations.Test;
  */
 public class To_Delete_a_Lead_in_SugarCRM extends TestBase {
 
-    public ExtentTest test;
-
-    public void pretest_setup(){
-        initPageClass();
-        configTestData.testName = "To_Delete_a_Lead_in_SugarCRM";
-        testData = projectGeneric.getTestData(GlobalConstants.TEST_DATA_PATH, ProjectConstants.TEST_DATA_SUGARCRM_LEAD, configTestData.testName);
-
-
-        test = extentManager.createTest(configTestData.testName);
-        extentManager.createNode("Browser  ::  " + configTestData.testBrowser, configTestData.testName, test);
-        extentManager.assignGroup(configTestData.testBrowser, test);
-    }
 
     @Test
     public void To_Delete_a_Lead_in_SugarCRM() throws Exception {
        //Variable Declarion
-        pretest_setup();
+        extentTest = pretest_setup();
 
         if(testData.get("ExecuteScript").equalsIgnoreCase("YES")) {
 
             //Step 1
-            loginPage.navigate_SugarCRMLoginPage();
-            verify(loginPage.verify_SugarCRMLoginPage_isDisplayed(), "user navigates to homepage", test);
+            loginPage.navigate_SugarCRMLoginPage(extentTest);
+            loginPage.verify_SugarCRMLoginPage_isDisplayed(extentTest);
 
             //Step 2
-            loginPage.user_Login_To_SugarCRM(testData);
-            verify(homePage.tab_Leads.isDisplayed(), "User enters credentials and cliks login", test);
+            loginPage.user_Login_To_SugarCRM(testData,extentTest);
+            //homePage.verifyAuthHomePage(extentTest);
 
             //Step 3
-            homePage.tab_Leads.click();
-            Thread.sleep(15);
-            verify(leadsPage.header_Leads.isDisplayed(), "user clicks on Leads tab. Leads Tab displayed", test);
+            Thread.sleep(1000);
+            homePage.user_clicks_on_Leads_tab(extentTest);
 
             // Step 4
-            leadsPage.user_enter_lead_fname_lname(testData.get("First_Name"), testData.get("Last_Name"));
-            action("user enters lead firstname and Lastname", test);
+            leadsPage.user_enter_lead_fname_lname(testData.get("First_Name"), testData.get("Last_Name"),extentTest);
 
             // Step 5
-            leadsPage.user_delete_lead_information();
-            action("user selects the record and delete", test);
+            leadsPage.user_delete_lead_information(extentTest);
 
             //Step 6
-
-            leadsPage.user_logsout_from_application();
+            leadsPage.user_logsout_from_application(extentTest);
             Thread.sleep(2000);
-            verify(!Verification.verifyPageUrl(loginPage.login_URL), "user logsout from application", test);
-
-
-        } else {
+            Verification.verifyPageUrl(loginPage.login_URL);
 
         }
     }

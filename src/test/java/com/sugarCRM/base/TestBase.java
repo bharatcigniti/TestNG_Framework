@@ -7,6 +7,9 @@ import com.TestAutomationDemo.keywords.Verification;
 import com.TestAutomationDemo.utils.Generic;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+import com.sugarCRM.constatns.ProjectConstants;
 import com.sugarCRM.generic.ProjectGeneric;
 import com.sugarCRM.pages.HomePage;
 import com.sugarCRM.pages.LeadsPage;
@@ -55,6 +58,22 @@ public class TestBase extends ConfigBase {
         leadsPage = new LeadsPage(configTestData);
     }
 
+    public ExtentTest pretest_setup(){
+        initPageClass();
+        ExtentTest test=null;
+        testData = projectGeneric.getTestData(GlobalConstants.TEST_DATA_PATH, ProjectConstants.TEST_DATA_SUGARCRM_LEAD, configTestData.testName);
+        configTestData.executeScript = testData.get("ExecuteScript");
+        if(configTestData.executeScript.equalsIgnoreCase("YES")) {
+            test = extentManager.createTest(configTestData.testName);
+            extentManager.assignGroup(configTestData.testBrowser, test);
+        }
+        return test;
+    }
+
+
+   public void report(Status status,String description,ExtentTest extentTest){
+        extentManager.addstep(status,description,extentTest);
+   }
 
 
     public void action(String msg, ExtentTest test){

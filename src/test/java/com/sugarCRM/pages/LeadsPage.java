@@ -5,6 +5,8 @@ import com.TestAutomationDemo.constants.GlobalConstants;
 import com.TestAutomationDemo.keywords.Action;
 import com.TestAutomationDemo.keywords.Verification;
 import com.TestAutomationDemo.utils.Generic;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import com.sugarCRM.base.TestBase;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -175,14 +177,16 @@ public class LeadsPage extends TestBase {
     public WebElement btnEdit;
 
 
-
-
-    public void user_click_on_CreateLead(){
-        action.click(lnk_CreateLeads);
+    public void user_click_on_CreateLead(ExtentTest extentTest){
+        try {
+            action.click(lnk_CreateLeads);
+            report(Status.PASS,"User click on CreateLead",extentTest);
+        }catch (Exception e){
+            report(Status.FAIL,e.getMessage(),extentTest);
+        }
     }
 
-    public void user_fills_Lead_information(HashMap<String,String> testData){
-
+    public void user_fills_Lead_information(HashMap<String,String> testData,ExtentTest extentTest){
         try {
             Thread.sleep(30);
             action.enterInput(input_OfficePhone, testData.get("Office_Phone"));
@@ -213,7 +217,6 @@ public class LeadsPage extends TestBase {
             action.enterInput(department, testData.get("Department"));
             action.click(assigned_select);
 
-
             for (String winHandle : driver.getWindowHandles()) {
                 driver.switchTo().window(winHandle);
             }
@@ -225,85 +228,120 @@ public class LeadsPage extends TestBase {
 
             Thread.sleep(1000);
             driver.switchTo().window(winHandleBefore);
+
+            report(Status.PASS,"User fills the lead information",extentTest);
         }catch (Exception e){
-            e.printStackTrace();
+            report(Status.FAIL,e.getMessage(),extentTest);
         }
     }
 
 
-    public void user_fills_the_address_information(HashMap<String,String> testData) {
-        action.enterInput(primary_address, testData.get("Primary_Address"));
-        action.enterInput(state, testData.get("city"));
-        action.enterInput(postalcode, testData.get("PostalCode"));
-        action.enterInput(country, testData.get("Country"));
-        action.click(copy_checkbox);
+    public void user_fills_the_address_information(HashMap<String,String> testData,ExtentTest extentTest) {
+        try {
+            action.enterInput(primary_address, testData.get("Primary_Address"));
+            action.enterInput(state, testData.get("city"));
+            action.enterInput(postalcode, testData.get("PostalCode"));
+            action.enterInput(country, testData.get("Country"));
+            action.click(copy_checkbox);
+            report(Status.PASS,"User fills the address information",extentTest);
+        } catch (Exception e){
+            report(Status.FAIL,e.getMessage(),extentTest);
+        }
     }
 
-    public void user_fills_the_email_details(HashMap<String,String> testData) {
-        action.enterInput(email_field1, testData.get("Email1"));
-        action.click(add_address);
-        action.enterInput(email_field2, testData.get("Email2"));
-        action.click(email_delete);
+    public void user_fills_the_email_details(HashMap<String,String> testData,ExtentTest extentTest) {
+        try {
+            action.enterInput(email_field1, testData.get("Email1"));
+            action.click(add_address);
+            action.enterInput(email_field2, testData.get("Email2"));
+            action.click(email_delete);
+            report(Status.PASS,"User fills the email details",extentTest);
+        } catch (Exception e){
+            report(Status.FAIL,e.getMessage(),extentTest);
+        }
     }
 
-    public void user_clicks_on_save_button() {
-        if(verification.isDisplayed(Save)){
+    public void user_clicks_on_save_button(ExtentTest extentTest) {
+        try{
             action.click(Save);
+            report(Status.PASS,"User clicks on save button",extentTest);
+        }catch (Exception e){
+            report(Status.FAIL,e.getMessage(),extentTest);
         }
     }
 
-    public boolean user_verifies_the_creation_of_lead() {
-        return verification.isDisplayed(lead_verification);
+    public boolean user_verifies_the_creation_of_lead(ExtentTest extentTest) {
+        boolean status=false;
+        try {
+            status=verification.isDisplayed(lead_verification);
+            if(status) {
+                report(Status.PASS,"User created the Lead",extentTest);
+            } else{
+                report(Status.FAIL,"User does not created the lead",extentTest);
+            }
+        }catch (Exception e){
+            report(Status.FAIL,e.getMessage(),extentTest);
+        }
+        return status;
     }
 
-
-    public void user_verifies_the_updation_of_lead() {
-        action.click(lead_verification);
+    public void user_logsout_from_application(ExtentTest extentTest) {
+        try {
+            action.click(logout);
+            report(Status.PASS,"user logout from application",extentTest);
+        }catch (Exception e){
+            report(Status.FAIL,e.getMessage(),extentTest);
+        }
     }
 
-    public void user_logsout_from_application() {
-        action.click(logout);
+    public void user_edit_lead_information(HashMap<String,String> testData,ExtentTest extentTest) {
+        try {
+
+            action.enterInput(edit_fname, testData.get("First_Name"));
+            action.enterInput(edit_lname, testData.get("Last_Name"));
+            action.click(edit_Search);
+            Thread.sleep(500);
+            WebElement element = driver.findElement(By.xpath("//form[@id='MassUpdate']/table//tr[3]/td[2]/a[text()='Ms. Steffani Doss'][1]"));
+            action.click(element);
+            Thread.sleep(500);
+
+            action.click(btnEdit);
+            Thread.sleep(500);
+
+            user_fills_the_address_information(testData,extentTest);
+            user_clicks_on_save_button(extentTest);
+            report(Status.PASS,"User edit Lead Information",extentTest);
+        }catch (Exception e){
+            report(Status.FAIL,e.getMessage(),extentTest);
+        }
     }
 
-    public void user_edit_lead_information(HashMap<String,String> testData) throws Exception{
-//        List<WebElement> rows = tblMassData.findElements(By.tagName("tr"));
-//        List<WebElement> colms = rows.get(3).findElements(By.tagName("td"));
-//
-//        System.out.println("Rows:"+rows.size());
-//        System.out.println("Columns:"+colms.size());
-//        System.out.println("value::"+colms.get(2).getText());
-        action.enterInput(edit_fname,testData.get("First_Name"));
-        action.enterInput(edit_lname,testData.get("Last_Name"));
-        action.click(edit_Search);
-        Thread.sleep(500);
-        WebElement element = driver.findElement(By.xpath("//form[@id='MassUpdate']/table//tr[3]/td[2]/a[text()='Ms. Steffani Doss'][1]"));
-        action.click(element);
-        Thread.sleep(500);
-
-        action.click(btnEdit);
-        Thread.sleep(500);
-
-        user_fills_the_address_information(testData);
-        user_clicks_on_save_button();
+    public void user_enter_lead_fname_lname(String fname,String lname,ExtentTest extentTest){
+        try {
+            action.enterInput(edit_fname, fname);
+            action.enterInput(edit_lname, lname);
+            action.click(edit_Search);
+            Thread.sleep(500);
+            report(Status.PASS,"User enter lead - Firstname and Lastname",extentTest);
+        }catch (Exception e){
+            report(Status.FAIL,e.getMessage(),extentTest);
+        }
     }
+    public void user_delete_lead_information(ExtentTest extentTest) {
+        try {
+            WebElement element = driver.findElement(By.xpath("//form[@id='MassUpdate']/table//tr[3]/td[2]/a[text()='Ms. Steffani Doss'][1]"));
+            action.click(element);
+            Thread.sleep(500);
 
-    public void user_enter_lead_fname_lname(String fname,String lname)throws Exception{
-        action.enterInput(edit_fname,fname);
-        action.enterInput(edit_lname,lname);
-        action.click(edit_Search);
-        Thread.sleep(500);
-    }
-    public void user_delete_lead_information() throws Exception{
+            action.click(delete);
+            Thread.sleep(500);
 
-        WebElement element = driver.findElement(By.xpath("//form[@id='MassUpdate']/table//tr[3]/td[2]/a[text()='Ms. Steffani Doss'][1]"));
-        action.click(element);
-        Thread.sleep(500);
-
-        action.click(delete);
-        Thread.sleep(500);
-
-        Alert alert=driver.switchTo().alert();
-        alert.accept();
+            Alert alert = driver.switchTo().alert();
+            alert.accept();
+            report(Status.PASS,"User delete Lead Information",extentTest);
+        } catch (Exception e){
+            report(Status.FAIL,e.getMessage(),extentTest);
+        }
     }
 
 

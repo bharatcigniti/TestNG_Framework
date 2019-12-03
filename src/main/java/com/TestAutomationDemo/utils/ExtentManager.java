@@ -61,18 +61,14 @@ public class ExtentManager {
             switch (status) {
                 case INFO:
                     test.log(Status.INFO,details);
-
                     break;
                 case PASS:
-//                    test.log(Status.PASS,details);
                     test.pass(details);
                     break;
                 case FAIL:
-//                   test.log(Status.FAIL,details);
                     test.fail(details);
                     break;
                 case SKIP:
-//                    test.log(Status.SKIP,details);
                     test.skip(details);
                     break;
             }

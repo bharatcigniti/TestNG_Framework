@@ -17,29 +17,18 @@ import org.testng.annotations.Test;
 public class To_Edit_a_Lead_in_SugarCRM extends TestBase {
 
 
-
-    public void pretest_setup(){
-        initPageClass();
-        configTestData.testName = "To_Edit_a_Lead_in_SugarCRM";
-        testData = projectGeneric.getTestData(GlobalConstants.TEST_DATA_PATH, ProjectConstants.TEST_DATA_SUGARCRM_LEAD, configTestData.testName);
-
-        extentTest = extentManager.getExtentTest(configTestData.testName,testData.get("Execute"));
-        extentManager.createNode("Browser  ::  " + configTestData.testBrowser, configTestData.testName, extentTest);
-        extentManager.assignGroup(configTestData.testBrowser, extentTest);
-    }
-
     @Test
     public void To_Edit_a_Lead_in_SugarCRM() throws Exception {
        //Variable Declarion
-        pretest_setup();
-        if(testData.get("ExecuteScript").equalsIgnoreCase("YES")) {
+        extentTest = pretest_setup();
 
+        if(testData.get("ExecuteScript").equalsIgnoreCase("YES")) {
             //Step 1
-            loginPage.navigate_SugarCRMLoginPage();
-            verify(loginPage.verify_SugarCRMLoginPage_isDisplayed(), "user navigates to homepage", extentTest);
+            loginPage.navigate_SugarCRMLoginPage(extentTest);
+            verify(loginPage.verify_SugarCRMLoginPage_isDisplayed(extentTest), "user navigates to homepage", extentTest);
 
             //Step 2
-            loginPage.user_Login_To_SugarCRM(testData);
+            loginPage.user_Login_To_SugarCRM(testData,extentTest);
             verify(homePage.tab_Leads.isDisplayed(), "User enters credentials and cliks login", extentTest);
 
             //Step 3
@@ -48,19 +37,16 @@ public class To_Edit_a_Lead_in_SugarCRM extends TestBase {
             verify(leadsPage.header_Leads.isDisplayed(), "user clicks on Leads tab. Leads Tab displayed", extentTest);
 
             //Step 4
-            leadsPage.user_edit_lead_information(testData);
+            leadsPage.user_edit_lead_information(testData,extentTest);
             action("User edits the lead information and cliks on save button", extentTest);
             Thread.sleep(500);
 
             //Step 5
-            leadsPage.user_logsout_from_application();
+            leadsPage.user_logsout_from_application(extentTest);
             Thread.sleep(2000);
             verify(Verification.verifyPageUrl(loginPage.login_URL), "user logsout from application", extentTest);
 
         }
-//        } else {
-//            extentTest.skip(MarkupHelper.createLabel("Test Script :: "+configTestData.testName+"  Skipped", ExtentColor.BLUE));
-//        }
     }
 
 }

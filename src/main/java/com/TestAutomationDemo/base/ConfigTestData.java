@@ -30,6 +30,6 @@ public class ConfigTestData {
 
 //    public Status finalTestCaseStatus = Status.PASS;
 
-
+    public String executeScript = null;
 
 }
