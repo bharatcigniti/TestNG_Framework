@@ -36,4 +36,6 @@ public class GlobalConstants {
     public static String TEST_DATA_PATH=null;
 
     public static String MULTI_BROWSER=null;
+
+    public static int MAX_RETRY_COUNT = 0;
 }

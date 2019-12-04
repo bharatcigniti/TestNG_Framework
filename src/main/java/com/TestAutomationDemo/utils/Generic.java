@@ -34,7 +34,7 @@ public class Generic {
 
 
     /*	To get the host OS name */
-    public static Platform getCurretnPlatform(){
+    public Platform getCurretnPlatform(){
         if(platform == null){
             String osname = System.getProperty("os.name").toLowerCase();
             if(osname.contains("win")){
@@ -50,7 +50,7 @@ public class Generic {
     }
 
     /*	To get the ComputerName */
-    public static String getComputerName() throws Exception{
+    public String getComputerName() throws Exception{
         String hostname = "Unknown";
         try
         {
@@ -71,7 +71,7 @@ public class Generic {
      * @param verifyTextOptions
      * @return
      */
-    public static boolean verifyText(String sActualText, String sExpectedText, String verifyTextOptions){
+    public boolean verifyText(String sActualText, String sExpectedText, String verifyTextOptions){
         boolean result=true;
         try{
             switch (verifyTextOptions) {
@@ -97,7 +97,7 @@ public class Generic {
     }
 
 
-    public static String readFile(String filepath) throws IOException{
+    public String readFile(String filepath) throws IOException{
         File file = new File(filepath);
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 
@@ -126,9 +126,6 @@ public class Generic {
     }
 
 
-
-
-
     // Load the Config properties file from test source
     public static void loadConfigProp() throws Exception{
         File file = new File(GlobalConstants.CONFIG_PROP_FILE_PATH);
@@ -147,7 +144,7 @@ public class Generic {
         return rbConfig.getString(key);
     }
     // Read the Config properties file from test source
-    public static void readConfigProp(){
+    public void readConfigProp(){
         ClassLoader loader=null;
         String path=null;
         try {
@@ -164,6 +161,8 @@ public class Generic {
 
 
         GlobalConstants.MULTI_BROWSER = rbTestdata.getString("multiBrowser");
+
+        GlobalConstants.MAX_RETRY_COUNT = Integer.valueOf(rbTestdata.getString("maxRetryCount"));
 
         if(!getCurretnPlatform().is(Platform.WINDOWS)){
             GlobalConstants.SELENIUM_WEB_DRIVERS_PATH=GlobalConstants.SELENIUM_WEB_DRIVERS_PATH.replaceAll("\\\\", File.separator);

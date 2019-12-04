@@ -2,10 +2,7 @@ package com.TestAutomationDemo.base;
 
 import com.TestAutomationDemo.constants.GlobalConstants;
 import com.TestAutomationDemo.driver.DriverConfig;
-import com.TestAutomationDemo.utils.DateUtils;
-import com.TestAutomationDemo.utils.ExtentManager;
-import com.TestAutomationDemo.utils.Generic;
-import com.TestAutomationDemo.utils.ScreenshotGenarator;
+import com.TestAutomationDemo.utils.*;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -32,6 +29,7 @@ public class ConfigBase {
     public ScreenshotGenarator screenshotGenarator;
     public ThreadLocal<RemoteWebDriver> remoteWebDriver = null;
     public Generic generic;
+    public HashMap<String,String> testData;
 
     @BeforeSuite (alwaysRun = true)
     public void beforeSuite(ITestContext context){
@@ -58,14 +56,11 @@ public class ConfigBase {
             remoteWebDriver = new ThreadLocal<>();
             DriverConfig driverConfig = new DriverConfig(configTestData);
             remoteWebDriver.set(driverConfig.getDriver());
-
             configTestData.driver = remoteWebDriver.get();
-
-
         } catch (Exception e){
             e.printStackTrace();
         }
-        Test testClass = testMethod.getAnnotation(Test.class);
+        //Test testClass = testMethod.getAnnotation(Test.class);
         configTestData.groupName = browser;
 
     }
@@ -92,7 +87,6 @@ public class ConfigBase {
     protected void afterMethod(ITestResult result) {
         try{
             configTestData.driver.quit();
-
         } catch (Exception e){
             e.printStackTrace();
         }

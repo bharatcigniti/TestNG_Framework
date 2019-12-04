@@ -47,7 +47,6 @@ public class HomePage extends TestBase {
             } else{
                 report(Status.FAIL,"Authinticated Home page does not displayed",extentTest);
             }
-            System.out.println("Status:"+status);
         }catch (Exception e){
             report(Status.FAIL,e.getMessage(),extentTest);
         }

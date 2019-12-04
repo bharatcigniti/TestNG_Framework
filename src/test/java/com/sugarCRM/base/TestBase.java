@@ -38,7 +38,7 @@ public class TestBase extends ConfigBase {
     public Verification verification;
     public ProjectGeneric projectGeneric;
 
-    public HashMap<String,String> testData;
+
 
     public LoginPage loginPage;
     public HomePage homePage;
@@ -75,17 +75,5 @@ public class TestBase extends ConfigBase {
         extentManager.addstep(status,description,extentTest);
    }
 
-
-    public void action(String msg, ExtentTest test){
-        extentManager.addstep(Status.INFO,msg,test);
-    }
-
-    public void verify(boolean condition, String msg, ExtentTest test){
-        if(condition){
-            extentManager.addstep(Status.PASS,msg,test);
-        } else{
-            extentManager.addstep(Status.FAIL,msg,test);
-        }
-    }
 
 }

@@ -64,12 +64,15 @@ public class ExtentManager {
                     break;
                 case PASS:
                     test.pass(details);
+                    Assert.assertEquals(true, details);
                     break;
                 case FAIL:
                     test.fail(details);
+                    Assert.assertEquals(false, details);
                     break;
                 case SKIP:
                     test.skip(details);
+
                     break;
             }
         }catch (Exception e){

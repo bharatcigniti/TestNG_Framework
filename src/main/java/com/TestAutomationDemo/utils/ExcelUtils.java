@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -369,5 +370,33 @@ public class ExcelUtils {
 		objdataExtractorRow = objdataExtractorSheet.getRow(0);
 		targetTestScriptColumns.add(objdataExtractorRow);
 		return targetTestScriptColumns;
+	}
+
+	public HashMap<String,String> readExcel(String xlFilePath, String sheetName, String testCaseName)  {
+		int rownum=0;
+		HashMap<String,String> excelData=new HashMap<String,String>();
+
+		try {
+			getExcelFile(xlFilePath,sheetName);
+
+			int colCount = xlsxColumnCount();
+
+			int rowCount= xlsxRowCount();
+
+			for(int i=1;i<rowCount;i++){
+				if(testCaseName.equalsIgnoreCase(getCellData_XLSX(i,1))){
+					rownum=i;
+					break;
+				}
+			}
+
+			for (int j = 1; j < colCount; j++) {
+				excelData.put(getCellData_XLSX(0,j),getCellData_XLSX(rownum,j));
+			}
+
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return excelData;
 	}
 }

@@ -40,7 +40,6 @@ public class DriverConfig {
         Random Dice = new Random();
         browsers = GlobalConstants.MULTI_BROWSER.split(",");
         n = Dice.nextInt(browsers.length);
-        System.out.println("rando:"+n);
         return browsers[n];
     }
     public RemoteWebDriver getDriver() {
@@ -48,7 +47,6 @@ public class DriverConfig {
             if(configTestData.testBrowser.equalsIgnoreCase("multiBrowser")) {
                 configTestData.testBrowser = getMultiBrowser();
             }
-
             driver= setWebDriverManage(new RemoteWebDriver(new URL(GlobalConstants.LOCAL_GRID_HUB), getBrowserCapabilities()));
 
         } catch (Exception e){
@@ -69,20 +67,13 @@ public class DriverConfig {
         switch (configTestData.testBrowser.toLowerCase()) {
             case "firefox":
             case "ff":
-//                System.setProperty(
-//                        "webdriver.gecko.driver", GlobalConstants.SELENIUM_WEB_DRIVERS_PATH + "geckodriver.exe");
-//                capabilities = DesiredCapabilities.firefox();
                 capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
                 capabilities.setBrowserName("firefox");
                 break;
             case "ie":
             case "internet explorer":
             case "ie11":
-//                System.setProperty(
-//                        "webdriver.ie.driver", GlobalConstants.SELENIUM_WEB_DRIVERS_PATH + "IEDriverServer.exe");
                 capabilities = DesiredCapabilities.internetExplorer();
-                // capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-                // capabilities.setCapability(InternetExplorerDriver.FORCE_CREATE_PROCESS, false);
                 capabilities.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
                 capabilities.setBrowserName("internet explorer");
                 capabilities.setCapability(InternetExplorerDriver.NATIVE_EVENTS, false);
@@ -93,8 +84,6 @@ public class DriverConfig {
                 chromeoptions.addArguments("test-type");
                 chromeoptions.addArguments("disable-popup-blocking");
                 capabilities.setCapability(CapabilityType.ForSeleniumServer.ENSURING_CLEAN_SESSION, true);
-//                System.setProperty(
-//                        "webdriver.chrome.driver", GlobalConstants.SELENIUM_WEB_DRIVERS_PATH + "chromedriver.exe");
                 capabilities = DesiredCapabilities.chrome();
                 capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
                 capabilities.setCapability(ChromeOptions.CAPABILITY, chromeoptions);
@@ -111,11 +100,6 @@ public class DriverConfig {
                 break;
             case "edge":
             case "microsoft edge":
-
-                // driver = new EdgeDriver();
-//                System.setProperty(
-//                        "webdriver.edge.driver",
-//                        GlobalConstants.SELENIUM_WEB_DRIVERS_PATH + "MicrosoftWebDriver.exe");
                 capabilities = DesiredCapabilities.edge();
                 //    options.setUseCleanSession(true);
                 capabilities.setBrowserName(DesiredCapabilities.edge().getBrowserName());
